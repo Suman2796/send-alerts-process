@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="send-alert-main-suite.xml" />
+	<flow name="mock-http:request" doc:id="2903330f-b690-437e-b62c-5037421c9534" >
+		<try doc:name="Try" doc:id="e7347966-3732-4d8a-aab7-a4145348bd66" >
+			<munit-tools:retrieve doc:name="Retrieve" doc:id="5b7d439b-7ea4-47ba-b4da-a87acf098e0c" key="Mock Request"/>
+			<error-handler >
+				<on-error-continue enableNotifications="false" logException="false" doc:name="On Error Continue" doc:id="0898aeb8-e3bf-4cd7-bcc5-208cbe371383" type="ANY">
+					<set-payload value="#[1]" doc:name="Set Payload" doc:id="2fc12326-db6b-48fd-84ba-551e8e2fdf4f" />
+				</on-error-continue>
+			</error-handler>
+		</try>
+		<munit-tools:store doc:name="Store" doc:id="3888898b-9f82-43f9-8a14-2e89ae39379f" key="Mock Request">
+			<munit-tools:value ><![CDATA[#[payload + 1]]]></munit-tools:value>
+		</munit-tools:store>
+		<choice doc:name="Choice" doc:id="bd79de47-4e59-4491-87d4-a0d7dece2c5d" >
+			<when expression="#[payload == 1]">
+				<munit:set-event doc:name="Set Event" doc:id="cbcba1d8-4909-4a03-9e96-f1dad3925aa3" >
+					<munit:payload value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+					<munit:variables >
+						<munit:variable key="rootMessage" value="#[readUrl('classpath://sendalertmainFlowtest\mock_variable_.dwl')]" />
+						<munit:variable key="dbRows" value="#[output application/java --- readUrl('classpath://sendalertmainFlowtest\mock_variable_1.dwl')]" encoding="UTF-8" mediaType="application/java" />
+						<munit:variable key="apiResponse" value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_variable_2.dwl')]" encoding="UTF-8" mediaType="application/json" />
+						<munit:variable key="counter" value="#[readUrl('classpath://sendalertmainFlowtest\mock_variable_3.dwl')]" />
+					</munit:variables>
+				</munit:set-event>
+			</when>
+			<when expression="#[payload == 2]">
+				<munit:set-event doc:name="Set Event" doc:id="bbb661d1-e1ef-441b-bc01-144cfd3482fc" >
+					<munit:payload value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_payload1.dwl')]" encoding="UTF-8" mediaType="application/json" />
+					<munit:variables >
+						<munit:variable key="current" value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_variable_4.dwl')]" encoding="UTF-8" mediaType="application/json" />
+						<munit:variable key="rootMessage" value="#[readUrl('classpath://sendalertmainFlowtest\mock_variable_5.dwl')]" />
+						<munit:variable key="dbRows" value="#[output application/java --- readUrl('classpath://sendalertmainFlowtest\mock_variable_6.dwl')]" encoding="UTF-8" mediaType="application/java" />
+						<munit:variable key="apiResponse" value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_variable_7.dwl')]" encoding="UTF-8" mediaType="application/json" />
+						<munit:variable key="counter" value="#[readUrl('classpath://sendalertmainFlowtest\mock_variable_8.dwl')]" />
+						<munit:variable key="message" value="#[output text/plain --- readUrl('classpath://sendalertmainFlowtest\mock_variable_9.dwl')]" encoding="UTF-8" mediaType="text/plain" />
+					</munit:variables>
+				</munit:set-event>
+			</when>
+			<when expression="#[payload == 3]">
+				<munit:set-event doc:name="Set Event" doc:id="e04036b5-af1c-426d-bd41-e112ace16883" >
+					<munit:payload value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_payload2.dwl')]" encoding="UTF-8" mediaType="application/json" />
+					<munit:variables >
+						<munit:variable key="current" value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_variable_10.dwl')]" encoding="UTF-8" mediaType="application/json" />
+						<munit:variable key="rootMessage" value="#[readUrl('classpath://sendalertmainFlowtest\mock_variable_11.dwl')]" />
+						<munit:variable key="dbRows" value="#[output application/java --- readUrl('classpath://sendalertmainFlowtest\mock_variable_12.dwl')]" encoding="UTF-8" mediaType="application/java" />
+						<munit:variable key="apiResponse" value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_variable_13.dwl')]" encoding="UTF-8" mediaType="application/json" />
+						<munit:variable key="counter" value="#[readUrl('classpath://sendalertmainFlowtest\mock_variable_14.dwl')]" />
+						<munit:variable key="message" value="#[output text/plain --- readUrl('classpath://sendalertmainFlowtest\mock_variable_15.dwl')]" encoding="UTF-8" mediaType="text/plain" />
+					</munit:variables>
+				</munit:set-event>
+			</when>
+			<when expression="#[payload == 4]">
+				<munit:set-event doc:name="Set Event" doc:id="9e1512ba-f1f5-40be-9580-30cd01afe539" >
+					<munit:payload value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_payload3.dwl')]" encoding="UTF-8" mediaType="application/json" />
+					<munit:variables >
+						<munit:variable key="current" value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_variable_16.dwl')]" encoding="UTF-8" mediaType="application/json" />
+						<munit:variable key="rootMessage" value="#[readUrl('classpath://sendalertmainFlowtest\mock_variable_17.dwl')]" />
+						<munit:variable key="dbRows" value="#[output application/java --- readUrl('classpath://sendalertmainFlowtest\mock_variable_18.dwl')]" encoding="UTF-8" mediaType="application/java" />
+						<munit:variable key="apiResponse" value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_variable_19.dwl')]" encoding="UTF-8" mediaType="application/json" />
+						<munit:variable key="counter" value="#[readUrl('classpath://sendalertmainFlowtest\mock_variable_20.dwl')]" />
+						<munit:variable key="message" value="#[output text/plain --- readUrl('classpath://sendalertmainFlowtest\mock_variable_21.dwl')]" encoding="UTF-8" mediaType="text/plain" />
+					</munit:variables>
+				</munit:set-event>
+			</when>
+			<when expression="#[payload == 5]">
+				<munit:set-event doc:name="Set Event" doc:id="cb88124d-ed47-41ce-b460-c0a2976b9c59" >
+					<munit:payload value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_payload4.dwl')]" encoding="UTF-8" mediaType="application/json" />
+					<munit:variables >
+						<munit:variable key="current" value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_variable_22.dwl')]" encoding="UTF-8" mediaType="application/json" />
+						<munit:variable key="rootMessage" value="#[readUrl('classpath://sendalertmainFlowtest\mock_variable_23.dwl')]" />
+						<munit:variable key="dbRows" value="#[output application/java --- readUrl('classpath://sendalertmainFlowtest\mock_variable_24.dwl')]" encoding="UTF-8" mediaType="application/java" />
+						<munit:variable key="apiResponse" value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_variable_25.dwl')]" encoding="UTF-8" mediaType="application/json" />
+						<munit:variable key="counter" value="#[readUrl('classpath://sendalertmainFlowtest\mock_variable_26.dwl')]" />
+						<munit:variable key="message" value="#[output text/plain --- readUrl('classpath://sendalertmainFlowtest\mock_variable_27.dwl')]" encoding="UTF-8" mediaType="text/plain" />
+					</munit:variables>
+				</munit:set-event>
+			</when>
+			<when expression="#[payload == 6]">
+				<munit:set-event doc:name="Set Event" doc:id="28205ef0-d857-45e9-b521-ea85f57486be" >
+					<munit:payload value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_payload5.dwl')]" encoding="UTF-8" mediaType="application/json" />
+					<munit:variables >
+						<munit:variable key="current" value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_variable_28.dwl')]" encoding="UTF-8" mediaType="application/json" />
+						<munit:variable key="rootMessage" value="#[readUrl('classpath://sendalertmainFlowtest\mock_variable_29.dwl')]" />
+						<munit:variable key="dbRows" value="#[output application/java --- readUrl('classpath://sendalertmainFlowtest\mock_variable_30.dwl')]" encoding="UTF-8" mediaType="application/java" />
+						<munit:variable key="apiResponse" value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_variable_31.dwl')]" encoding="UTF-8" mediaType="application/json" />
+						<munit:variable key="counter" value="#[readUrl('classpath://sendalertmainFlowtest\mock_variable_32.dwl')]" />
+						<munit:variable key="message" value="#[output text/plain --- readUrl('classpath://sendalertmainFlowtest\mock_variable_33.dwl')]" encoding="UTF-8" mediaType="text/plain" />
+					</munit:variables>
+				</munit:set-event>
+			</when>
+			<when expression="#[payload == 7]">
+				<munit:set-event doc:name="Set Event" doc:id="a9f73a2f-88ba-49b0-89f7-9a977caf7f96" >
+					<munit:payload value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_payload6.dwl')]" encoding="UTF-8" mediaType="application/json" />
+					<munit:variables >
+						<munit:variable key="current" value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_variable_34.dwl')]" encoding="UTF-8" mediaType="application/json" />
+						<munit:variable key="rootMessage" value="#[readUrl('classpath://sendalertmainFlowtest\mock_variable_35.dwl')]" />
+						<munit:variable key="dbRows" value="#[output application/java --- readUrl('classpath://sendalertmainFlowtest\mock_variable_36.dwl')]" encoding="UTF-8" mediaType="application/java" />
+						<munit:variable key="apiResponse" value="#[output application/json --- readUrl('classpath://sendalertmainFlowtest\mock_variable_37.dwl')]" encoding="UTF-8" mediaType="application/json" />
+						<munit:variable key="counter" value="#[readUrl('classpath://sendalertmainFlowtest\mock_variable_38.dwl')]" />
+						<munit:variable key="message" value="#[output text/plain --- readUrl('classpath://sendalertmainFlowtest\mock_variable_39.dwl')]" encoding="UTF-8" mediaType="text/plain" />
+					</munit:variables>
+				</munit:set-event>
+			</when>
+			<otherwise >
+				<munit-tools:fail doc:name="Fail" doc:id="95441fcf-f8e2-4654-980f-d93637210972" message="There are no more events to mock"/>
+			</otherwise>
+		</choice>
+	</flow>
+	<munit:test name="send-alert-mainFlow-test" doc:id="cdb519f3-2463-425a-b784-5fb14a9ac448" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Request" doc:id="dbd7e233-dc0d-4c36-944f-e2da6ace6fb2" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="73815198-b617-4e47-a81a-5cd55fdd5f12" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-call flow="mock-http:request" />
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Select" doc:id="41d284dd-1152-4589-a437-42220cdf527a" processor="db:select">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="70287df6-0200-45b5-9f9c-e8aaf05f3e5f" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/java --- readUrl('classpath://sendalertmainFlowtest\mock_payload7.dwl')]" mediaType="application/java" encoding="UTF-8" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="3e43d2db-e63c-49cc-87d1-8afe359fa75c" >
+				<munit:payload value="#[readUrl('classpath://sendalertmainFlowtest\set-event_payload.dwl')]" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to send-alert-mainFlow" doc:id="3211d51e-ee53-4f48-8072-47e948377ff7" name="send-alert-mainFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="4fe66847-6e5e-48b2-b4e7-e198ede82d21" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import sendalertmainFlowtest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="838da1dc-e0a6-43f7-9165-11f272f51e78" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="95c84a64-5c89-4437-9a22-9b57a58536f4" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Set Variable" doc:id="32dbca2d-0752-4fa9-837e-67466bb7aea4" processor="set-variable" times="7">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="15ada57d-6fd5-4c20-9462-e2a9d719d9bd" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Set Variable" doc:id="aad93470-bd92-4b35-a4d5-b08b2d653f67" processor="set-variable" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="62099388-e733-41e7-9290-ee7d9f108e59" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="d4a07ecf-7455-44c9-92ea-bb87a262d111" processor="ee:transform" times="7">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="76f54397-cdf1-45c2-b0e6-cfbaf6c7a1fb" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Logger" doc:id="4bdc75a7-5191-475c-b7ad-1db08416a1e6" processor="logger" atMost="5">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="bf9c2bd8-7328-4576-b057-5e57af78b1de" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Logger" doc:id="860c1e1a-5c59-4bd4-a241-efc9d03b1902" processor="logger" atMost="5">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="ed8b0f8c-6ff7-4a3e-a4ac-d59c1cdbbe4e" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Set Variable" doc:id="d9a6c08d-f21a-44fb-9ca3-6838606a30e5" processor="set-variable" times="2">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="68e176a2-df7f-4d57-bd14-ccf4ccd40fa9" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="send-alert-mainFlow1-test" doc:id="f52cc9f1-a86a-48bd-a622-a9cc5d67b795" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Create Message" doc:id="9c842030-f360-4213-aa3d-7243c29c5acd" processor="twilio:create20100401-accounts-messagesjson-by-account-sid">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="f35819ea-197d-4865-9f75-1f8c4bac7de4" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://sendalertmainFlow1test\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[output application/java --- readUrl('classpath://sendalertmainFlow1test\mock_attributes.dwl')]" mediaType="application/java" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="60c0ede0-78a8-4503-8600-93e56e44433a" >
+				<munit:payload value="#[output text/plain --- readUrl('classpath://sendalertmainFlow1test\set-event_payload.dwl')]" encoding="UTF-8" mediaType="text/plain" />
+				<munit:attributes value="#[readUrl('classpath://sendalertmainFlow1test\set-event_attributes.dwl')]" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to send-alert-mainFlow1" doc:id="a2e0057e-4fd9-421a-bce7-2431aa60e9a4" name="send-alert-mainFlow1"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="885c33d0-cbfe-4ad5-ba88-d3f94eaad99e" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import sendalertmainFlow1test::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify Logger" doc:id="a1c135cc-23ea-428d-a9a7-c35b553cf53a" processor="logger" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="648d89e4-77d6-4c15-bbd3-a5cfcab4e0eb" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="3e6f0038-e51d-4a1b-a7a5-122b12887b96" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="86e5d888-7904-404d-bb4d-23a66226b74e" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Logger" doc:id="1c01f2cf-cbed-4ec7-a5a6-ac543a8e09c3" processor="logger" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="55434983-505a-4fc0-9df0-1619faa70c63" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="267f8013-58bf-4b72-9936-e728336692e3" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="594a01d4-894b-46bf-a8e4-7a94d37b7f62" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

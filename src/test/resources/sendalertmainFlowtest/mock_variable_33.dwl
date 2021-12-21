@@ -1,0 +1,1 @@
+"{\n  \"notificationMode\": \"SMS\",\n  \"mobileNumber\": \"+919038534264\",\n  \"stockName\": \"INFYEQN\",\n  \"open\": 1801,\n  \"dayHigh\": 1829.65,\n  \"dayLow\": 1801,\n  \"lastPrice\": 1828.5,\n  \"change\": 29.6,\n  \"pChange\": 1.65,\n  \"volume\": 1732697,\n  \"highTargetPrice\": 1780.0,\n  \"lowTargetPrice\": 1700.0\n}"
